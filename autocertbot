@@ -22,6 +22,11 @@ nano /script-server-nay/autocertbot.sh
 certbot renew --force-renewal --apache
 
 
+
+
+
+nano /script-server-nay/httpd.sh
+
 #!/bin/bash
 service httpd restart
 
@@ -36,7 +41,8 @@ chmod 777 /script-server-nay/httpd.sh
 
 
 
-//add lệnh vào crontab
+//add lệnh vào crontab 
+(2 file này sẽ chạy vào ngày mùng 4 hàng tháng, file autocertbot sẽ chạy lúc 01h01, file httpd sẽ chạy vào lúc 01h03)
 
 crontab -u root -e
 
