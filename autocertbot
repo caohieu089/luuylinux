@@ -1,16 +1,49 @@
-Auto-certbot thì phải mở range port 80+443
+Auto-certbot thì phải mở range port 80+443 để cho nó auto renew được
 
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------------
-Cài plugin
-sudo apt-get install certbot python-certbot-apache 
+CentOS + Apache
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------
+//Cài plugin
+sudo yum install certbot python-certbot-apache 
 
-tạo file cấu hình auto certbot với nội dung sau:
+
+
+
+
+
+//tạo file cấu hình auto certbot với nội dung sau (tạo cả file httpd - tách thành 2 file riêng):
 
 nano /script-server-nay/autocertbot.sh
 
 
+//paste vào
+
 #!/bin/bash
 certbot renew --force-renewal --apache
+
+
+#!/bin/bash
+service httpd restart
+
+
+
+
+//sau đó chmod 777 cho file trên
+
+chmod 777 /script-server-nay/autocertbot.sh
+chmod 777 /script-server-nay/httpd.sh
+
+
+
+
+//add lệnh vào crontab
+
+crontab -u root -e
+
+1 1 4 * * root /bin/bash /script-server-nay/autocertbot.sh
+3 1 4 * * root /bin/bash /script-server-nay/httpd.sh
+
+
 
 
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------------
