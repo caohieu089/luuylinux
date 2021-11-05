@@ -115,7 +115,8 @@ Giải thích:
 
 3 lệnh trên sẽ chạy vào ngày 19 hàng tháng, lúc 01h sáng (01:01, 01:03 và 01:04)
 
-2 lệnh dưới sẽ chạy vào mỗi 6 tiếng của 1 ngày (phút 2 và phút 3 mỗi 6 tiếng, giúp OnlyOffice không bị lag (vì cài trên Ubuntu dùng rất ngon nhưng hay bị lag server nên phải restart service)
+2 lệnh dưới sẽ chạy vào mỗi 6 tiếng của 1 ngày (phút 2 và phút 3 mỗi 6 tiếng, giúp OnlyOffice không bị lag)
+(vì cài trên Ubuntu dùng rất ngon nhưng hay bị lag server nên phải restart service)
 
 
 crontab -u root -e
