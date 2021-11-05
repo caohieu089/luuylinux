@@ -15,7 +15,8 @@ sudo yum install certbot python-certbot-apache
 
 
 //tạo file cấu hình auto certbot với nội dung sau (tạo cả file httpd - tách thành 2 file riêng):
-
+cd /
+mkdir /script-server-nay/
 nano /script-server-nay/autocertbot.sh
 
 
@@ -63,8 +64,9 @@ apt install certbot python3-certbot-nginx -y
 
 
 
-//tạo file cấu hình auto certbot với nội dung sau (tạo cả file httpd - tách thành 2 file riêng):
-
+//tạo file cấu hình auto certbot với nội dung sau (tạo 3 file, tách riêng):
+cd /
+mkdir /script-server-nay/
 nano /script-server-nay/autocertbot.sh
 
 
