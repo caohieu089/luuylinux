@@ -19,7 +19,7 @@ Cài đặt theo thứ tự sau:
 4. Cài đặt PostgreSQL:
 
         //cài đặt
-        sudo apt install postgresql
+        sudo apt install -y postgresql
         systemctl start postgresql
         systemctl enable postgresql
         
@@ -46,10 +46,10 @@ Cài đặt theo thứ tự sau:
 5. Cài đặt Redis + rabbitmq
 
         //cài đặt
-        sudo apt install redis-server rabbitmq-server
+        sudo apt install -y nano python3 python redis-server rabbitmq-server gnupg2
 
 
-6. Cài đặt OnlyOffice
+6. Cài đặt OnlyOffice 
          
          //add repo
          echo "deb http://download.onlyoffice.com/repo/debian squeeze main" | sudo tee /etc/apt/sources.list.d/onlyoffice.list
@@ -57,7 +57,67 @@ Cài đặt theo thứ tự sau:
          //add key public
          sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys CB2DE8E5
          
-         //install
+         
+         
+         //install ((phần này lưu ý không dùng tool 3rd như PuTTY, SecureCRT hoặc gì cả. Vào thẳng máy Linux VMs để làm = tay toàn bộ)
          sudo apt update
          sudo apt install onlyoffice-documentserver
          
+              //khi nào nó hỏi pass postgresql thì nhập onlyoffice
+              //nó cũng sẽ hỏi cài font. nhấn Yes 
+              //Sau đó đợi 1 lát cài đặt xong là có thể lên web xem.
+         
+         
+         
+        //cài đặt let's encrypt (tiếp tục quay lại dùng putty/securecrt được)
+        apt -y install certbot python3-certbot-nginx
+        
+        //tạm dừng nginx
+        systemctl stop nginx
+        
+        //gen cert
+        certbot certonly --standalone --agree-tos -m <email> -d <domain>     # <<sửa sao cho đúng với email và domain mình cần làm
+        //nếu sai lệnh, có thể tìm lệnh khác.
+        
+        //enable nginx
+        systemctl start nginx
+        
+         
+         
+         
+         
+7. Chỉnh sửa file /etc/nginx/conf.d/ds.conf
+         
+#sudo nano /etc/nginx/conf.d/ds.conf
+
+------------------------------------------------------------
+include /etc/nginx/includes/http-common.conf;
+server {
+  listen 0.0.0.0:80;
+  listen [::]:80 default_server;
+  server_tokens off;
+  server_name onlyoffice.your-domain.com;      #<<< sửa domain sao cho đúng với domain của mình.
+
+  include /etc/nginx/includes/ds-*.conf;
+}
+------------------------------------------------------------
+
+
+    //sau đó restart service nginx.
+    sudo systemctl reload nginx
+
+
+         
+8. Tiếp tục stop service nginx để xử lý tiếp:
+
+
+cd /etc/onlyoffice/documentserver/nginx/
+cp ds.conf. ds.conf.backup.ok
+cp ds-ssl.conf.tmpl ds.conf
+nano ds.conf
+
+    //xử lý phần này:
+    
+    
+
+
