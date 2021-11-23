@@ -1,0 +1,63 @@
+--------------------
+Triển khai OnlyOffice:
+  Yêu cầu:
+    -IP Public đã được ISP bind record DNS
+    -Thông được ra ngoài, nên có firewall lọc IDS/IPS, lọc traffic,... (chỉ chừa 2 port 80+443)
+    -Ubuntu Server LTS 20.04
+    -server ảo (recommended 8 Core + 2-4Gb Ram)
+    
+    
+
+Cài đặt theo thứ tự sau:
+
+1. Disable SELinux
+
+2. Update Ubuntu to latest, check login với root sao cho ok (sudo su + passwd root). rồi reboot
+
+3. Khởi động lại OK, bắt đầu login với root.
+
+4. Cài đặt PostgreSQL:
+
+        //cài đặt
+        sudo apt install postgresql
+        systemctl start postgresql
+        systemctl enable postgresql
+        
+        //Tạo 1 database
+        sudo -i -u postgres psql -c "CREATE DATABASE onlyoffice;"
+        
+        //Tạo user:
+        sudo -i -u postgres psql -c "CREATE USER onlyoffice WITH password 'onlyoffice';"
+        
+        //gán quyền
+        sudo -i -u postgres psql -c "GRANT ALL privileges ON DATABASE onlyoffice TO onlyoffice;"
+
+4. Cài đặt nodejs
+        
+        //add repo nodejs
+        curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -
+        
+        //cài đặt nodejs
+        sudo apt install nodejs -y
+        
+        //check xem ok chưa
+        node -v
+
+5. Cài đặt Redis + rabbitmq
+
+        //cài đặt
+        sudo apt install redis-server rabbitmq-server
+
+
+6. Cài đặt OnlyOffice
+         
+         //add repo
+         echo "deb http://download.onlyoffice.com/repo/debian squeeze main" | sudo tee /etc/apt/sources.list.d/onlyoffice.list
+         
+         //add key public
+         sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys CB2DE8E5
+         
+         //install
+         sudo apt update
+         sudo apt install onlyoffice-documentserver
+         
