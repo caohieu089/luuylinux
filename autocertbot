@@ -47,7 +47,7 @@ chmod 777 /script-server-nay/httpd.sh
 
 
 //add lệnh vào crontab rồi save lại
-(2 file này sẽ chạy vào ngày mùng 4 hàng tháng, file autocertbot sẽ chạy va vào nửa đêm lúc 01h01, và file httpd sẽ chạy vào lúc 01h03 ngay sau đó)
+(2 file này sẽ chạy vào ngày mùng 1 hàng tháng, file autocertbot sẽ chạy va vào nửa đêm lúc 01h01, và file httpd sẽ chạy vào lúc 01h03 ngay sau đó)
 
 crontab -u root -e
 
