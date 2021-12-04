@@ -23,7 +23,7 @@ nano /script-server-nay/autocertbot.sh
 //paste vào
 
 #!/bin/bash
-certbot renew --force-renewal --apache
+systemctl stop httpd && certbot renew --force-renewal --apache
 
 
 
@@ -32,7 +32,8 @@ certbot renew --force-renewal --apache
 nano /script-server-nay/httpd.sh
 
 #!/bin/bash
-service httpd restart
+systemctl start httpd
+systemctl start httpd 
 
 
 
@@ -50,8 +51,8 @@ chmod 777 /script-server-nay/httpd.sh
 
 crontab -u root -e
 
-1 1 4 * * root /bin/bash /script-server-nay/autocertbot.sh
-3 1 4 * * root /bin/bash /script-server-nay/httpd.sh
+1 1 1 * * root /bin/bash /script-server-nay/autocertbot.sh
+3 1 1 * * root /bin/bash /script-server-nay/httpd.sh
 
 
 
@@ -73,8 +74,7 @@ nano /script-server-nay/autocertbot.sh
 //paste vào
 
 #!/bin/bash
-certbot renew --force-renewal --nginx
-
+service nginx stop && certbot renew --force-renewal
 
 
 
@@ -84,7 +84,8 @@ certbot renew --force-renewal --nginx
 nano /script-server-nay/nginx-restart.sh
 
 #!/bin/bash
-service nginx restart
+service nginx start
+service nginx start
 
 
 
