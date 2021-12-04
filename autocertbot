@@ -124,9 +124,6 @@ crontab -u root -e
 
 1 1 19 * * /bin/bash /script-server-nay/autocertbot.sh
 3 1 19 * * /bin/bash /script-server-nay/nginx-restart.sh
-4 1 19 * * /bin/bash /script-server-nay/supervisorctl-restart.sh
-2 */6 * * * /bin/bash /script-server-nay/nginx-restart.sh
-3 */6 * * * /bin/bash /script-server-nay/supervisorctl-restart.sh
 
 
 
